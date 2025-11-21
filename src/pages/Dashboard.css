@@ -644,6 +644,74 @@
     text-align: center;
 }
 
+/* Quick Actions Mobile Styles */
+.quick-actions-mobile {
+    display: none;
+}
+
+.actions-grid-mobile {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.actions-grid-mobile::-webkit-scrollbar {
+    height: 4px;
+}
+
+.actions-grid-mobile::-webkit-scrollbar-track {
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 2px;
+}
+
+.actions-grid-mobile::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 2px;
+}
+
+.actions-grid-mobile::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.5);
+}
+
+.action-btn-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 10px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    min-width: 70px;
+    flex-shrink: 0;
+}
+
+.action-btn-mobile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    border-color: #6366f1;
+    background: #fafbfc;
+}
+
+.action-btn-mobile .action-icon {
+    font-size: 24px;
+}
+
+.action-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #334155;
+    text-align: center;
+    line-height: 1.2;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
 /* Investment Plans Styles */
 .plans-grid {
     display: grid;
@@ -826,6 +894,16 @@
 
     .main-column {
         order: 1;
+    }
+
+    /* Show mobile quick actions */
+    .quick-actions-mobile {
+        display: block;
+    }
+
+    /* Hide sidebar quick actions on mobile */
+    .sidebar-section {
+        display: none;
     }
 
     .actions-grid-sidebar {

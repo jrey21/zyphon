@@ -17,13 +17,19 @@ function Dashboard({ onLogout }: DashboardProps) {
 
     // Get user display name or email
     const getUserName = () => {
+        let name = '';
         if (currentUser?.displayName) {
-            return currentUser.displayName;
+            name = currentUser.displayName;
+        } else if (currentUser?.email) {
+            name = currentUser.email.split('@')[0];
+        } else {
+            name = 'User';
         }
-        if (currentUser?.email) {
-            return currentUser.email.split('@')[0];
-        }
-        return 'User';
+
+        // Capitalize first letter of each word
+        return name.split(' ').map(word =>
+            word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        ).join(' ');
     };
 
     const toggleDropdown = () => {
@@ -158,6 +164,29 @@ function Dashboard({ onLogout }: DashboardProps) {
                                         <div className="stat-label">Growth Rate</div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Quick Actions Section - Mobile */}
+                        <div className="content-section quick-actions-mobile">
+                            <h3>Quick Actions</h3>
+                            <div className="actions-grid-mobile">
+                                <button className="action-btn-mobile">
+                                    <span className="action-icon">💳</span>
+                                    <span className="action-label">Request Payout</span>
+                                </button>
+                                <button className="action-btn-mobile">
+                                    <span className="action-icon">💵</span>
+                                    <span className="action-label">Passive Income</span>
+                                </button>
+                                <button className="action-btn-mobile">
+                                    <span className="action-icon">🏆</span>
+                                    <span className="action-label">Commission</span>
+                                </button>
+                                <button className="action-btn-mobile">
+                                    <span className="action-icon">📄</span>
+                                    <span className="action-label">Statements</span>
+                                </button>
                             </div>
                         </div>
 
@@ -317,10 +346,6 @@ function Dashboard({ onLogout }: DashboardProps) {
                                 <button className="action-btn">
                                     <span className="action-icon">📄</span>
                                     <span className="action-title">Statements</span>
-                                </button>
-                                <button className="action-btn">
-                                    <span className="action-icon">🎓</span>
-                                    <span className="action-title">Tutorials</span>
                                 </button>
                             </div>
                         </div>
