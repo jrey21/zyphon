@@ -2,6 +2,7 @@
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
     position: relative;
     overflow: hidden;
 }
@@ -116,6 +117,8 @@
     padding: 40px 50px;
     color: white;
     text-align: center;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .login-branding h1 {
@@ -308,6 +311,7 @@
     position: relative;
     z-index: 2;
     grid-column: 2;
+    grid-row: 1;
     overflow: visible;
 }
 
@@ -954,10 +958,15 @@
     }
 }
 
+.login-container .footer {
+    grid-column: 1 / -1;
+    grid-row: 2;
+}
+
 @media (max-width: 768px) {
     .login-container {
         grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
+        grid-template-rows: auto 1fr auto;
         min-height: 100vh;
     }
 

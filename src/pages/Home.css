@@ -2,6 +2,8 @@
     min-height: 100vh;
     background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fae8ff 100%);
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -83,6 +85,7 @@
 
 .main-content {
     padding: 24px;
+    flex: 1;
 }
 
 .welcome-section {

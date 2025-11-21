@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import './Home.css';
+import Footer from '../components/Footer';
+import CryptoTicker from '../components/CryptoTicker';
 
 interface HomeProps {
     onLogout: () => void;
@@ -48,6 +50,8 @@ function Home({ onLogout }: HomeProps) {
                     </button>
                 </div>
             </header>
+
+            <CryptoTicker />
 
             <main className="main-content">
                 <div className="welcome-section">
@@ -216,6 +220,7 @@ function Home({ onLogout }: HomeProps) {
                     </div>
                 </div>
             </main>
+            <Footer />
         </div>
     );
 }
