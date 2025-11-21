@@ -1087,11 +1087,11 @@
     }
 
     .login-box h2 {
-        font-size: 18px;
+        font-size: 28px;
     }
 
     .subtitle {
-        font-size: 12px;
+        font-size: 14px;
         margin-bottom: 24px;
     }
 
@@ -1100,8 +1100,13 @@
     }
 
     .form-group input {
-        padding: 14px 18px 14px 50px;
+        padding: 14px 18px;
         font-size: 14px;
+    }
+
+    .form-group input[type="password"],
+    .form-group input[type="text"]:not(#username) {
+        padding-right: 50px;
     }
 
     .input-icon {
