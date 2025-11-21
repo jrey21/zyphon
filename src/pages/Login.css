@@ -1054,9 +1054,9 @@
     }
 
     .form-options {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .login-button {
