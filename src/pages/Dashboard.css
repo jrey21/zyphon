@@ -1237,6 +1237,21 @@
         font-size: 14px;
     }
 
+    .action-btn-mobile {
+        gap: 4px;
+        padding: 10px 8px;
+        border-radius: 8px;
+        min-width: 60px;
+    }
+
+    .action-btn-mobile .action-icon {
+        font-size: 20px;
+    }
+
+    .action-label {
+        font-size: 10px;
+    }
+
     .plans-grid {
         gap: 16px;
     }
