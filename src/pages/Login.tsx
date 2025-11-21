@@ -74,7 +74,7 @@ function Login({ onLogin }: LoginProps) {
 
                 <div className="branding-footer">
                     <div className="stat">
-                        <span className="stat-value">$2.5B+</span>
+                        <span className="stat-value">₱2.5B+</span>
                         <span className="stat-label">Assets Under Management</span>
                     </div>
                     <div className="stat-divider"></div>

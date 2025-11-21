@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Login from './pages/Login'
-import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
 import { AuthProvider, useAuth } from './contexts/authContext'
 import { doSignOut } from './firebase/auth'
 import './App.css'
@@ -20,7 +20,7 @@ function AppContent() {
   }
 
   const handleLogin = () => {
-    navigate('/home')
+    navigate('/dashboard')
   }
 
   return (
@@ -28,18 +28,18 @@ function AppContent() {
       <Route
         path="/login"
         element={
-          userLoggedIn ? <Navigate to="/home" replace /> : <Login onLogin={handleLogin} />
+          userLoggedIn ? <Navigate to="/dashboard" replace /> : <Login onLogin={handleLogin} />
         }
       />
       <Route
-        path="/home"
+        path="/dashboard"
         element={
           <PrivateRoute>
-            <Home onLogout={handleLogout} />
+            <Dashboard onLogout={handleLogout} />
           </PrivateRoute>
         }
       />
-      <Route path="/" element={<Navigate to={userLoggedIn ? "/home" : "/login"} replace />} />
+      <Route path="/" element={<Navigate to={userLoggedIn ? "/dashboard" : "/login"} replace />} />
     </Routes>
   )
 }
