@@ -318,10 +318,9 @@ function AllTransactions({ onLogout }: AllTransactionsProps) {
                                                     onClick={() => setApprovedPage(prev => Math.max(1, prev - 1))}
                                                     disabled={approvedPage === 1}
                                                 >
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <polyline points="15 18 9 12 15 6"></polyline>
                                                     </svg>
-                                                    Previous
                                                 </button>
                                                 <span className="pagination-info">
                                                     Page {approvedPage} of {getTotalPages(approvedFunds.length)}
@@ -331,8 +330,7 @@ function AllTransactions({ onLogout }: AllTransactionsProps) {
                                                     onClick={() => setApprovedPage(prev => Math.min(getTotalPages(approvedFunds.length), prev + 1))}
                                                     disabled={approvedPage === getTotalPages(approvedFunds.length)}
                                                 >
-                                                    Next
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <polyline points="9 18 15 12 9 6"></polyline>
                                                     </svg>
                                                 </button>
@@ -398,10 +396,9 @@ function AllTransactions({ onLogout }: AllTransactionsProps) {
                                                     onClick={() => setDeclinedPage(prev => Math.max(1, prev - 1))}
                                                     disabled={declinedPage === 1}
                                                 >
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <polyline points="15 18 9 12 15 6"></polyline>
                                                     </svg>
-                                                    Previous
                                                 </button>
                                                 <span className="pagination-info">
                                                     Page {declinedPage} of {getTotalPages(declinedFunds.length)}
@@ -411,8 +408,7 @@ function AllTransactions({ onLogout }: AllTransactionsProps) {
                                                     onClick={() => setDeclinedPage(prev => Math.min(getTotalPages(declinedFunds.length), prev + 1))}
                                                     disabled={declinedPage === getTotalPages(declinedFunds.length)}
                                                 >
-                                                    Next
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <polyline points="9 18 15 12 9 6"></polyline>
                                                     </svg>
                                                 </button>
@@ -494,10 +490,9 @@ function AllTransactions({ onLogout }: AllTransactionsProps) {
                                                     onClick={() => setWithdrawalPage(prev => Math.max(1, prev - 1))}
                                                     disabled={withdrawalPage === 1}
                                                 >
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <polyline points="15 18 9 12 15 6"></polyline>
                                                     </svg>
-                                                    Previous
                                                 </button>
                                                 <span className="pagination-info">
                                                     Page {withdrawalPage} of {getTotalPages(withdrawalHistory.length)}
@@ -507,8 +502,7 @@ function AllTransactions({ onLogout }: AllTransactionsProps) {
                                                     onClick={() => setWithdrawalPage(prev => Math.min(getTotalPages(withdrawalHistory.length), prev + 1))}
                                                     disabled={withdrawalPage === getTotalPages(withdrawalHistory.length)}
                                                 >
-                                                    Next
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <polyline points="9 18 15 12 9 6"></polyline>
                                                     </svg>
                                                 </button>
