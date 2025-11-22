@@ -183,7 +183,7 @@ function Transaction({ onLogout }: TransactionProps) {
     ];
 
     const handleBack = () => {
-        navigate(-1);
+        navigate('/dashboard');
     };
 
     return (
