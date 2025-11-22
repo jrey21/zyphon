@@ -15,6 +15,7 @@ function Dashboard({ onLogout }: DashboardProps) {
     const [selectedTab, setSelectedTab] = useState('dashboard');
     const [showDropdown, setShowDropdown] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [isSubscriptionMinimized, setIsSubscriptionMinimized] = useState(false);
     const { currentUser } = useAuth();
 
     // Get user display name or email
@@ -173,7 +174,7 @@ function Dashboard({ onLogout }: DashboardProps) {
                         <div className="content-section quick-actions-mobile">
                             <h3>Quick Actions</h3>
                             <div className="actions-grid-mobile">
-                                <button className="action-btn-mobile">
+                                <button className="action-btn-mobile" onClick={() => navigate('/transactions')}>
                                     <span className="action-icon">💳</span>
                                     <span className="action-label">Withdraw / Deposit</span>
                                 </button>
@@ -196,20 +197,29 @@ function Dashboard({ onLogout }: DashboardProps) {
                         <div className="cards-grid">
                             <div className="card">
                                 <div className="card-header">
-                                    <h3>Pending Withdrawal</h3>
-                                    <span className="card-icon">⏳</span>
-                                </div>
-                                <div className="card-value">₱8,500</div>
-                                <div className="card-change">Processing</div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-header">
                                     <h3>Total Subscription</h3>
                                     <span className="card-icon">📊</span>
                                 </div>
                                 <div className="card-value">₱45,000</div>
                                 <div className="card-change positive">+5.2% this month</div>
+                            </div>
+
+                            <div className="card">
+                                <div className="card-header">
+                                    <h3>Available Balance</h3>
+                                    <span className="card-icon">💰</span>
+                                </div>
+                                <div className="card-value">₱24,200</div>
+                                <div className="card-change positive">Ready to withdraw</div>
+                            </div>
+
+                            <div className="card">
+                                <div className="card-header">
+                                    <h3>Pending Withdrawal</h3>
+                                    <span className="card-icon">⏳</span>
+                                </div>
+                                <div className="card-value">₱8,500</div>
+                                <div className="card-change">Processing</div>
                             </div>
 
                             <div className="card">
@@ -220,6 +230,106 @@ function Dashboard({ onLogout }: DashboardProps) {
                                 <div className="card-value">₱12,300</div>
                                 <div className="card-change">Completed</div>
                             </div>
+                        </div>
+
+                        {/* Subscription Plan Section */}
+                        <div className="content-section">
+                            <div className="section-header">
+                                <h3>Current Plan</h3>
+                                <button
+                                    className="minimize-btn"
+                                    onClick={() => setIsSubscriptionMinimized(!isSubscriptionMinimized)}
+                                    title={isSubscriptionMinimized ? "Expand" : "Minimize"}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        style={{ transform: isSubscriptionMinimized ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+                                    >
+                                        <polyline points="18 15 12 9 6 15"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                            {!isSubscriptionMinimized && (
+                                <div className="table-container">
+                                    <table className="subscription-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Type of Plan</th>
+                                                <th>Amount Subscribe</th>
+                                                <th>Income</th>
+                                                <th>Days Remaining</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td data-label="Type of Plan">
+                                                    <div className="plan-type">
+                                                        <span className="plan-badge-table silver">Silver Plan</span>
+                                                    </div>
+                                                </td>
+                                                <td data-label="Amount Subscribe">
+                                                    <div className="amount-cell">₱7,500</div>
+                                                </td>
+                                                <td data-label="Income">
+                                                    <div className="income-cell positive">₱900</div>
+                                                </td>
+                                                <td data-label="Days Remaining">
+                                                    <div className="days-cell">
+                                                        <span className="days-number">23</span>
+                                                        <span className="days-label">days</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="Type of Plan">
+                                                    <div className="plan-type">
+                                                        <span className="plan-badge-table gold">Gold Plan</span>
+                                                    </div>
+                                                </td>
+                                                <td data-label="Amount Subscribe">
+                                                    <div className="amount-cell">₱15,000</div>
+                                                </td>
+                                                <td data-label="Income">
+                                                    <div className="income-cell positive">₱2,250</div>
+                                                </td>
+                                                <td data-label="Days Remaining">
+                                                    <div className="days-cell">
+                                                        <span className="days-number">18</span>
+                                                        <span className="days-label">days</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td data-label="Type of Plan">
+                                                    <div className="plan-type">
+                                                        <span className="plan-badge-table basic">Basic Plan</span>
+                                                    </div>
+                                                </td>
+                                                <td data-label="Amount Subscribe">
+                                                    <div className="amount-cell">₱2,500</div>
+                                                </td>
+                                                <td data-label="Income">
+                                                    <div className="income-cell positive">₱200</div>
+                                                </td>
+                                                <td data-label="Days Remaining">
+                                                    <div className="days-cell">
+                                                        <span className="days-number">28</span>
+                                                        <span className="days-label">days</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
                         </div>
 
                         {/* Network Statistics Section */}
@@ -333,7 +443,7 @@ function Dashboard({ onLogout }: DashboardProps) {
                         <div className="content-section sidebar-section">
                             <h3>Quick Actions</h3>
                             <div className="actions-grid-sidebar">
-                                <button className="action-btn">
+                                <button className="action-btn" onClick={() => navigate('/transactions')}>
                                     <span className="action-icon">💳</span>
                                     <span className="action-title">Withdraw / Deposit</span>
                                 </button>
