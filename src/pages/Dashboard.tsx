@@ -448,10 +448,6 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     <span className="action-title">Withdraw / Deposit</span>
                                 </button>
                                 <button className="action-btn">
-                                    <span className="action-icon">💵</span>
-                                    <span className="action-title">Passive Income</span>
-                                </button>
-                                <button className="action-btn">
                                     <span className="action-icon">🏆</span>
                                     <span className="action-title">Commission</span>
                                 </button>

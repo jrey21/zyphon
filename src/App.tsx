@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import Networks from './pages/Networks'
 import Profile from './pages/Profile'
 import Transaction from './pages/Transaction'
+import AllTransactions from './pages/AllTransactions'
 import { AuthProvider, useAuth } from './contexts/authContext'
 import { doSignOut } from './firebase/auth'
 import './App.css'
@@ -63,6 +64,14 @@ function AppContent() {
         element={
           <PrivateRoute>
             <Transaction onLogout={handleLogout} />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/all-transactions"
+        element={
+          <PrivateRoute>
+            <AllTransactions onLogout={handleLogout} />
           </PrivateRoute>
         }
       />

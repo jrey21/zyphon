@@ -600,7 +600,16 @@ function Transaction({ onLogout }: TransactionProps) {
                         <div className="transaction-history-wrapper">
                             <div className="history-header">
                                 <h3 className="history-title">Recent Transactions</h3>
-                                <a href="#" className="show-all-link">Show All transactions</a>
+                                <a
+                                    href="/all-transactions"
+                                    className="show-all-link"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate('/all-transactions');
+                                    }}
+                                >
+                                    Show All transactions
+                                </a>
                             </div>
                             <div className="transaction-list">
                                 {transactionHistory.map((transaction) => (
