@@ -182,6 +182,10 @@ function Transaction({ onLogout }: TransactionProps) {
         { id: 5, type: 'Withdrawal', amount: 2500, status: 'Completed', date: 'Nov 10, 2025', method: 'Bank Transfer' }
     ];
 
+    const handleBack = () => {
+        navigate(-1);
+    };
+
     return (
         <div className="transaction-container">
             <header className="header">
@@ -190,95 +194,28 @@ function Transaction({ onLogout }: TransactionProps) {
                         <img src={logoImage} alt="Zyphon Capital" />
                     </div>
                     <nav className="nav">
-                        <a
-                            href="/dashboard"
-                            className={selectedTab === 'dashboard' ? 'active' : ''}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setSelectedTab('dashboard');
-                                navigate('/dashboard');
-                            }}
-                        >
-                            Dashboard
-                        </a>
-                        <a
-                            href="/networks"
-                            className={selectedTab === 'networks' ? 'active' : ''}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setSelectedTab('networks');
-                                navigate('/networks');
-                            }}
-                        >
-                            Networks
-                        </a>
+                        {/* ...existing code... */}
                     </nav>
                     <div className="user-section">
-                        <span className="user-name">{getUserName()}</span>
-                        <div className="dropdown-container">
-                            <button className="dropdown-button" onClick={toggleDropdown} title="User menu">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </button>
-                            {showDropdown && (
-                                <>
-                                    <div className="dropdown-backdrop" onClick={() => setShowDropdown(false)}></div>
-                                    <div className="dropdown-menu">
-                                        <button className="dropdown-item" onClick={handleProfileClick}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                                <circle cx="12" cy="7" r="4"></circle>
-                                            </svg>
-                                            <span>Profile Settings</span>
-                                        </button>
-                                        <div className="dropdown-divider"></div>
-                                        <button className="dropdown-item logout-item" onClick={handleLogoutClick}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                                <polyline points="16 17 21 12 16 7"></polyline>
-                                                <line x1="21" y1="12" x2="9" y2="12"></line>
-                                            </svg>
-                                            <span>Logout</span>
-                                        </button>
-                                    </div>
-                                </>
-                            )}
-                        </div>
+                        {/* ...existing code... */}
                     </div>
                 </div>
             </header>
 
             {/* Logout Confirmation Modal */}
-            {showLogoutModal && (
-                <div className="modal-overlay" onClick={handleCancelLogout}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h3 className="modal-title">Confirm Logout</h3>
-                        <p className="modal-message">Are you sure you want to logout from your account?</p>
-                        <div className="modal-actions">
-                            <button className="modal-btn modal-btn-cancel" onClick={handleCancelLogout}>
-                                Cancel
-                            </button>
-                            <button className="modal-btn modal-btn-confirm" onClick={handleConfirmLogout}>
-                                Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* ...existing code... */}
 
             <main className="main-content">
                 <div className="transaction-wrapper">
                     {/* Page Header */}
                     <div className="page-header">
-                        <div className="page-header-content">
-                            <div className="page-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        <div className="page-header-content mobile-header-group">
+                            <button className="back-button" onClick={handleBack} title="Go back">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M19 12H5M12 19l-7-7 7-7" />
                                 </svg>
-                            </div>
-                            <div>
+                            </button>
+                            <div className="mobile-header-titles">
                                 <h1 className="page-title">Withdraw / Deposit</h1>
                                 <p className="page-subtitle">Manage your funds with ease and security</p>
                             </div>
@@ -379,7 +316,7 @@ function Transaction({ onLogout }: TransactionProps) {
                                                     Amount (₱) <span className="required">*</span>
                                                 </label>
                                                 <div className="input-with-prefix">
-                                                    <span className="input-prefix">₱</span>
+
                                                     <input
                                                         id="amount"
                                                         type="number"
@@ -538,7 +475,6 @@ function Transaction({ onLogout }: TransactionProps) {
                                                 <div className="form-group">
                                                     <label htmlFor="requestAmount">Request Amount <span className="required">*</span></label>
                                                     <div className="input-with-prefix">
-                                                        <span className="input-prefix">₱</span>
                                                         <input
                                                             id="requestAmount"
                                                             type="number"

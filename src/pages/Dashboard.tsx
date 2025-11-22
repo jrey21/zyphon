@@ -178,17 +178,9 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     <span className="action-icon">💳</span>
                                     <span className="action-label">Withdraw / Deposit</span>
                                 </button>
-                                <button className="action-btn-mobile">
-                                    <span className="action-icon">💵</span>
-                                    <span className="action-label">Passive Income</span>
-                                </button>
                                 <button className="action-btn-mobile" onClick={() => navigate('/commission')}>
                                     <span className="action-icon">🏆</span>
                                     <span className="action-label">Commission</span>
-                                </button>
-                                <button className="action-btn-mobile">
-                                    <span className="action-icon">📄</span>
-                                    <span className="action-label">Statements</span>
                                 </button>
                             </div>
                         </div>
