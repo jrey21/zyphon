@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Footer from '../components/Footer';
 import { useAuth } from '../contexts/authContext';
-import { auth } from '../firebase/firebase';
 import { updateProfile, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import logoImage from '../assets/img/logo.png';
 
