@@ -183,7 +183,7 @@ function Transaction({ onLogout }: TransactionProps) {
     ];
 
     const handleBack = () => {
-        navigate('/dashboard');
+        navigate(-1);
     };
 
     return (
@@ -194,16 +194,82 @@ function Transaction({ onLogout }: TransactionProps) {
                         <img src={logoImage} alt="Zyphon Capital" />
                     </div>
                     <nav className="nav">
-                        {/* ...existing code... */}
+                        <a
+                            href="/dashboard"
+                            className={selectedTab === 'dashboard' ? 'active' : ''}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSelectedTab('dashboard');
+                                navigate('/dashboard');
+                            }}
+                        >
+                            Dashboard
+                        </a>
+                        <a
+                            href="/networks"
+                            className={selectedTab === 'Networks' ? 'active' : ''}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSelectedTab('Networks');
+                                navigate('/networks');
+                            }}
+                        >
+                            Networks
+                        </a>
                     </nav>
                     <div className="user-section">
-                        {/* ...existing code... */}
+                        <span className="user-name">{getUserName()}</span>
+                        <div className="dropdown-container">
+                            <button className="dropdown-button" onClick={toggleDropdown} title="User menu">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                            {showDropdown && (
+                                <>
+                                    <div className="dropdown-backdrop" onClick={() => setShowDropdown(false)}></div>
+                                    <div className="dropdown-menu">
+                                        <button className="dropdown-item" onClick={handleProfileClick}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
+                                            <span>Profile Settings</span>
+                                        </button>
+                                        <div className="dropdown-divider"></div>
+                                        <button className="dropdown-item logout-item" onClick={handleLogoutClick}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                                <polyline points="16 17 21 12 16 7"></polyline>
+                                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                                            </svg>
+                                            <span>Logout</span>
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </div>
             </header>
 
             {/* Logout Confirmation Modal */}
-            {/* ...existing code... */}
+            {showLogoutModal && (
+                <div className="modal-overlay" onClick={handleCancelLogout}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h3 className="modal-title">Confirm Logout</h3>
+                        <p className="modal-message">Are you sure you want to logout from your account?</p>
+                        <div className="modal-actions">
+                            <button className="modal-btn modal-btn-cancel" onClick={handleCancelLogout}>
+                                Cancel
+                            </button>
+                            <button className="modal-btn modal-btn-confirm" onClick={handleConfirmLogout}>
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <main className="main-content">
                 <div className="transaction-wrapper">
