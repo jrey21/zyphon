@@ -199,24 +199,39 @@
 
 .password-toggle {
     position: absolute;
-    right: 12px;
+    right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    background: transparent;
+    background: none;
     border: none;
     cursor: pointer;
-    color: #94a3b8;
+    color: #64748b;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    border-radius: 6px;
-    transition: all 0.2s;
+    padding: 8px;
+    outline: none;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .password-toggle:hover {
-    color: #6366f1;
-    background: rgba(99, 102, 241, 0.1);
+    transform: translateY(-50%);
+}
+
+.password-toggle:focus {
+    outline: none;
+    transform: translateY(-50%);
+}
+
+.password-toggle svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    pointer-events: none;
 }
 
 .field-hint {
