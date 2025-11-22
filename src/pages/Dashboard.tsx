@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import Footer from '../components/Footer';
 import CryptoTicker from '../components/CryptoTicker';
@@ -10,6 +11,7 @@ interface DashboardProps {
 }
 
 function Dashboard({ onLogout }: DashboardProps) {
+    const navigate = useNavigate();
     const [selectedTab, setSelectedTab] = useState('dashboard');
     const [showDropdown, setShowDropdown] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -67,14 +69,22 @@ function Dashboard({ onLogout }: DashboardProps) {
                         <a
                             href="/dashboard"
                             className={selectedTab === 'dashboard' ? 'active' : ''}
-                            onClick={() => setSelectedTab('dashboard')}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSelectedTab('dashboard');
+                                navigate('/dashboard');
+                            }}
                         >
                             Dashboard
                         </a>
                         <a
-                            href="#"
+                            href="/networks"
                             className={selectedTab === 'Networks' ? 'active' : ''}
-                            onClick={() => setSelectedTab('Networks')}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSelectedTab('Networks');
+                                navigate('/networks');
+                            }}
                         >
                             Networks
                         </a>
@@ -351,7 +361,11 @@ function Dashboard({ onLogout }: DashboardProps) {
                 <a
                     href="/dashboard"
                     className={`mobile-nav-item ${selectedTab === 'dashboard' ? 'active' : ''}`}
-                    onClick={() => setSelectedTab('dashboard')}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedTab('dashboard');
+                        navigate('/dashboard');
+                    }}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <rect x="3" y="3" width="7" height="7"></rect>
@@ -362,9 +376,13 @@ function Dashboard({ onLogout }: DashboardProps) {
                     <span>Dashboard</span>
                 </a>
                 <a
-                    href="#"
+                    href="/networks"
                     className={`mobile-nav-item ${selectedTab === 'Networks' ? 'active' : ''}`}
-                    onClick={() => setSelectedTab('Networks')}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedTab('Networks');
+                        navigate('/networks');
+                    }}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
