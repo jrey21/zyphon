@@ -65,7 +65,7 @@ function Dashboard({ onLogout }: DashboardProps) {
                     </div>
                     <nav className="nav">
                         <a
-                            href="/home"
+                            href="/dashboard"
                             className={selectedTab === 'dashboard' ? 'active' : ''}
                             onClick={() => setSelectedTab('dashboard')}
                         >
@@ -119,13 +119,6 @@ function Dashboard({ onLogout }: DashboardProps) {
             {showLogoutModal && (
                 <div className="modal-overlay" onClick={handleCancelLogout}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <div className="modal-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                <polyline points="16 17 21 12 16 7"></polyline>
-                                <line x1="21" y1="12" x2="9" y2="12"></line>
-                            </svg>
-                        </div>
                         <h3 className="modal-title">Confirm Logout</h3>
                         <p className="modal-message">Are you sure you want to logout from your account?</p>
                         <div className="modal-actions">
@@ -352,6 +345,58 @@ function Dashboard({ onLogout }: DashboardProps) {
                     </aside>
                 </div>
             </main>
+
+            {/* Mobile Bottom Navigation */}
+            <nav className="mobile-bottom-nav">
+                <a
+                    href="/dashboard"
+                    className={`mobile-nav-item ${selectedTab === 'dashboard' ? 'active' : ''}`}
+                    onClick={() => setSelectedTab('dashboard')}
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a
+                    href="#"
+                    className={`mobile-nav-item ${selectedTab === 'Networks' ? 'active' : ''}`}
+                    onClick={() => setSelectedTab('Networks')}
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>Networks</span>
+                </a>
+                <button
+                    className="mobile-nav-item"
+                    onClick={handleProfileClick}
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Profile</span>
+                </button>
+                <button
+                    className="mobile-nav-item"
+                    onClick={handleLogoutClick}
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </nav>
+
             <Footer />
         </div>
     );

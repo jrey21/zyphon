@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './Login.css';
 import { doSignInWithEmailAndPassword } from '../firebase/auth';
 import { useAuth } from '../contexts/authContext';
-import Footer from '../components/Footer';
 
 interface LoginProps {
     onLogin: () => void;
@@ -174,7 +173,6 @@ function Login({ onLogin }: LoginProps) {
                     </button>
                 </form>
             </div>
-            <Footer />
         </div>
     );
 }
