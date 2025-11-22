@@ -173,7 +173,7 @@ function Dashboard({ onLogout }: DashboardProps) {
                             <div className="actions-grid-mobile">
                                 <button className="action-btn-mobile">
                                     <span className="action-icon">💳</span>
-                                    <span className="action-label">Request Payout</span>
+                                    <span className="action-label">Withdraw / Deposit</span>
                                 </button>
                                 <button className="action-btn-mobile">
                                     <span className="action-icon">💵</span>
@@ -333,7 +333,7 @@ function Dashboard({ onLogout }: DashboardProps) {
                             <div className="actions-grid-sidebar">
                                 <button className="action-btn">
                                     <span className="action-icon">💳</span>
-                                    <span className="action-title">Request Payout</span>
+                                    <span className="action-title">Withdraw / Deposit</span>
                                 </button>
                                 <button className="action-btn">
                                     <span className="action-icon">💵</span>
