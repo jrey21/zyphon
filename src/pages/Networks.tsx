@@ -394,7 +394,7 @@ function Networks({ onLogout }: DashboardProps) {
 
     const handleProfileClick = () => {
         setShowDropdown(false);
-        console.log('Navigate to profile settings');
+        navigate('/profile');
     };
 
     const handleConfirmLogout = () => {

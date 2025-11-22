@@ -45,8 +45,7 @@ function Dashboard({ onLogout }: DashboardProps) {
 
     const handleProfileClick = () => {
         setShowDropdown(false);
-        // Add profile navigation logic here
-        console.log('Navigate to profile settings');
+        navigate('/profile');
     };
 
     const handleConfirmLogout = () => {

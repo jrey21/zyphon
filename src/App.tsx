@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Networks from './pages/Networks'
+import Profile from './pages/Profile'
 import { AuthProvider, useAuth } from './contexts/authContext'
 import { doSignOut } from './firebase/auth'
 import './App.css'
@@ -45,6 +46,14 @@ function AppContent() {
         element={
           <PrivateRoute>
             <Networks onLogout={handleLogout} />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <Profile onLogout={handleLogout} />
           </PrivateRoute>
         }
       />
