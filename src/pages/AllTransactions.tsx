@@ -343,56 +343,82 @@ function AllTransactions({ onLogout }: AllTransactionsProps) {
 
                                 {/* Declined Fund Table */}
                                 <div className="table-section">
-                                    <h3 className="table-title">Declined Fund</h3>
-                                    <div className="transactions-table-wrapper">
-                                        <table className="transactions-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Request Fund</th>
-                                                    <th>Date Declined</th>
-                                                    <th>Reason</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {paginatedDeclinedFunds.map((fund) => (
-                                                    <tr key={fund.id}>
-                                                        <td className="fullname-col">{fund.name}</td>
-                                                        <td className="amount-col">
-                                                            {formatCurrency(fund.requestFund)}
-                                                        </td>
-                                                        <td className="date-col">{fund.dateDeclined}</td>
-                                                        <td className="reason-col">{fund.reason}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div className="pagination">
+                                    <div className="table-header">
+                                        <h3 className="table-title">Declined Fund</h3>
                                         <button
-                                            className="pagination-btn"
-                                            onClick={() => setDeclinedPage(prev => Math.max(1, prev - 1))}
-                                            disabled={declinedPage === 1}
+                                            className="minimize-btn"
+                                            onClick={() => setIsDeclinedMinimized(!isDeclinedMinimized)}
+                                            title={isDeclinedMinimized ? "Expand" : "Minimize"}
                                         >
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <polyline points="15 18 9 12 15 6"></polyline>
-                                            </svg>
-                                            Previous
-                                        </button>
-                                        <span className="pagination-info">
-                                            Page {declinedPage} of {getTotalPages(declinedFunds.length)}
-                                        </span>
-                                        <button
-                                            className="pagination-btn"
-                                            onClick={() => setDeclinedPage(prev => Math.min(getTotalPages(declinedFunds.length), prev + 1))}
-                                            disabled={declinedPage === getTotalPages(declinedFunds.length)}
-                                        >
-                                            Next
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <polyline points="9 18 15 12 9 6"></polyline>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                style={{ transform: isDeclinedMinimized ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+                                            >
+                                                <polyline points="18 15 12 9 6 15"></polyline>
                                             </svg>
                                         </button>
                                     </div>
+                                    {!isDeclinedMinimized && (
+                                        <>
+                                            <div className="transactions-table-wrapper">
+                                                <table className="transactions-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Request Fund</th>
+                                                            <th>Date Declined</th>
+                                                            <th>Reason</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {paginatedDeclinedFunds.map((fund) => (
+                                                            <tr key={fund.id}>
+                                                                <td className="fullname-col">{fund.name}</td>
+                                                                <td className="amount-col">
+                                                                    {formatCurrency(fund.requestFund)}
+                                                                </td>
+                                                                <td className="date-col">{fund.dateDeclined}</td>
+                                                                <td className="reason-col">{fund.reason}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div className="pagination">
+                                                <button
+                                                    className="pagination-btn"
+                                                    onClick={() => setDeclinedPage(prev => Math.max(1, prev - 1))}
+                                                    disabled={declinedPage === 1}
+                                                >
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                                    </svg>
+                                                    Previous
+                                                </button>
+                                                <span className="pagination-info">
+                                                    Page {declinedPage} of {getTotalPages(declinedFunds.length)}
+                                                </span>
+                                                <button
+                                                    className="pagination-btn"
+                                                    onClick={() => setDeclinedPage(prev => Math.min(getTotalPages(declinedFunds.length), prev + 1))}
+                                                    disabled={declinedPage === getTotalPages(declinedFunds.length)}
+                                                >
+                                                    Next
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         )}
