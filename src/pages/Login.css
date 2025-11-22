@@ -317,7 +317,7 @@
 
 .hamster-container {
     position: absolute;
-    top: 100px;
+    top: 60px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -985,7 +985,7 @@
     }
 
     .hamster-container {
-        top: -40px;
+        top: -20px;
     }
 
     .branding-badge {
@@ -1088,7 +1088,7 @@
     }
 
     .hamster-container {
-        top: -40px;
+        top: -20px;
     }
 
     .login-box h1 {
