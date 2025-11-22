@@ -356,11 +356,15 @@ function Networks({ onLogout }: DashboardProps) {
     const [activeSearchTerm, setActiveSearchTerm] = useState('');
     const [activeCurrentPage, setActiveCurrentPage] = useState(1);
     const [activeItemsPerPage] = useState(5);
+    const [activeSortField, setActiveSortField] = useState<'name' | 'email' | 'date' | 'subscription'>('date');
+    const [activeSortDirection, setActiveSortDirection] = useState<'asc' | 'desc'>('desc');
 
     // Pagination and search states for inactive table
     const [inactiveSearchTerm, setInactiveSearchTerm] = useState('');
     const [inactiveCurrentPage, setInactiveCurrentPage] = useState(1);
     const [inactiveItemsPerPage] = useState(5);
+    const [inactiveSortField, setInactiveSortField] = useState<'name' | 'email' | 'date' | 'subscription'>('date');
+    const [inactiveSortDirection, setInactiveSortDirection] = useState<'asc' | 'desc'>('desc');
 
     // Get user display name or email
     const getUserName = () => {
@@ -410,18 +414,89 @@ function Networks({ onLogout }: DashboardProps) {
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     };
 
+    // Helper function to get plan type from subscription string
+    const getPlanType = (subscription: string): 'basic' | 'silver' | 'gold' | 'platinum' => {
+        const lowerSub = subscription.toLowerCase();
+        if (lowerSub.includes('basic')) return 'basic';
+        if (lowerSub.includes('silver')) return 'silver';
+        if (lowerSub.includes('gold')) return 'gold';
+        if (lowerSub.includes('platinum')) return 'platinum';
+        return 'basic'; // default
+    };
+
+    // Sorting handler for active table
+    const handleActiveSort = (field: 'name' | 'email' | 'date' | 'subscription') => {
+        if (activeSortField === field) {
+            setActiveSortDirection(activeSortDirection === 'asc' ? 'desc' : 'asc');
+        } else {
+            setActiveSortField(field);
+            setActiveSortDirection('asc');
+        }
+    };
+
+    // Sorting handler for inactive table
+    const handleInactiveSort = (field: 'name' | 'email' | 'date' | 'subscription') => {
+        if (inactiveSortField === field) {
+            setInactiveSortDirection(inactiveSortDirection === 'asc' ? 'desc' : 'asc');
+        } else {
+            setInactiveSortField(field);
+            setInactiveSortDirection('asc');
+        }
+    };
+
+    // Sort function
+    const sortMembers = (members: Member[], sortField: string, sortDirection: string) => {
+        return [...members].sort((a, b) => {
+            let aValue: any;
+            let bValue: any;
+
+            switch (sortField) {
+                case 'name':
+                    aValue = a.name.toLowerCase();
+                    bValue = b.name.toLowerCase();
+                    break;
+                case 'email':
+                    aValue = a.email.toLowerCase();
+                    bValue = b.email.toLowerCase();
+                    break;
+                case 'date':
+                    aValue = new Date(a.dateRegistered).getTime();
+                    bValue = new Date(b.dateRegistered).getTime();
+                    break;
+                case 'subscription':
+                    aValue = a.subscription.toLowerCase();
+                    bValue = b.subscription.toLowerCase();
+                    break;
+                default:
+                    return 0;
+            }
+
+            if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+            if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+            return 0;
+        });
+    };
+
     // Filter active members based on search term
-    const filteredActiveMembers = activeMembers.filter(member =>
-        member.name.toLowerCase().includes(activeSearchTerm.toLowerCase()) ||
-        member.email.toLowerCase().includes(activeSearchTerm.toLowerCase()) ||
-        member.subscription.toLowerCase().includes(activeSearchTerm.toLowerCase())
+    const filteredActiveMembers = sortMembers(
+        activeMembers.filter(member =>
+            member.name.toLowerCase().includes(activeSearchTerm.toLowerCase()) ||
+            member.email.toLowerCase().includes(activeSearchTerm.toLowerCase()) ||
+            member.subscription.toLowerCase().includes(activeSearchTerm.toLowerCase())
+        ),
+        activeSortField,
+        activeSortDirection
     );
 
     // Filter inactive members based on search term
-    const filteredInactiveMembers = inactiveMembers.filter(member =>
-        member.name.toLowerCase().includes(inactiveSearchTerm.toLowerCase()) ||
-        member.email.toLowerCase().includes(inactiveSearchTerm.toLowerCase()) ||
-        member.subscription.toLowerCase().includes(inactiveSearchTerm.toLowerCase())
+    const filteredInactiveMembers = sortMembers(
+        inactiveMembers.filter(member =>
+            member.name.toLowerCase().includes(inactiveSearchTerm.toLowerCase()) ||
+            member.email.toLowerCase().includes(inactiveSearchTerm.toLowerCase()) ||
+            member.subscription.toLowerCase().includes(inactiveSearchTerm.toLowerCase())
+        ),
+        inactiveSortField,
+        inactiveSortDirection
     );
 
     // Pagination calculations for active table
@@ -608,16 +683,78 @@ function Networks({ onLogout }: DashboardProps) {
                                     </button>
                                 )}
                             </div>
+                            <div className="sort-dropdown-wrapper">
+                                <label className="sort-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M3 6h18"></path>
+                                        <path d="M7 12h10"></path>
+                                        <path d="M10 18h4"></path>
+                                    </svg>
+                                    Sort by:
+                                </label>
+                                <select
+                                    className="sort-select"
+                                    value={`${activeSortField}-${activeSortDirection}`}
+                                    onChange={(e) => {
+                                        const [field, direction] = e.target.value.split('-') as ['name' | 'email' | 'date' | 'subscription', 'asc' | 'desc'];
+                                        setActiveSortField(field);
+                                        setActiveSortDirection(direction);
+                                    }}
+                                >
+                                    <option value="date-desc">Date (Newest First)</option>
+                                    <option value="date-asc">Date (Oldest First)</option>
+                                    <option value="subscription-asc">Subscription (A-Z)</option>
+                                    <option value="subscription-desc">Subscription (Z-A)</option>
+                                    <option value="name-asc">Name (A-Z)</option>
+                                    <option value="name-desc">Name (Z-A)</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="table-container">
                             <div className="table-responsive">
                                 <table className="members-table">
                                     <thead>
                                         <tr>
-                                            <th>Member Name</th>
-                                            <th>Email</th>
-                                            <th>Date Registered</th>
-                                            <th>Subscription</th>
+                                            <th onClick={() => handleActiveSort('name')} className="sortable">
+                                                <div className="th-content">
+                                                    <span>Member Name</span>
+                                                    <span className="sort-icon">
+                                                        {activeSortField === 'name' && (
+                                                            activeSortDirection === 'asc' ? '↑' : '↓'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </th>
+                                            <th onClick={() => handleActiveSort('email')} className="sortable">
+                                                <div className="th-content">
+                                                    <span>Email</span>
+                                                    <span className="sort-icon">
+                                                        {activeSortField === 'email' && (
+                                                            activeSortDirection === 'asc' ? '↑' : '↓'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </th>
+                                            <th onClick={() => handleActiveSort('date')} className="sortable">
+                                                <div className="th-content">
+                                                    <span>Date Registered</span>
+                                                    <span className="sort-icon">
+                                                        {activeSortField === 'date' && (
+                                                            activeSortDirection === 'asc' ? '↑' : '↓'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </th>
+                                            <th onClick={() => handleActiveSort('subscription')} className="sortable">
+                                                <div className="th-content">
+                                                    <span>Subscription</span>
+                                                    <span className="sort-icon">
+                                                        {activeSortField === 'subscription' && (
+                                                            activeSortDirection === 'asc' ? '↑' : '↓'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -633,7 +770,9 @@ function Networks({ onLogout }: DashboardProps) {
                                                     <td>{member.email}</td>
                                                     <td>{formatDate(member.dateRegistered)}</td>
                                                     <td>
-                                                        <span className="subscription-badge">{member.subscription}</span>
+                                                        <span className={`subscription-badge plan-${getPlanType(member.subscription)}`}>
+                                                            {member.subscription}
+                                                        </span>
                                                     </td>
                                                 </tr>
                                             ))
@@ -722,15 +861,66 @@ function Networks({ onLogout }: DashboardProps) {
                                     </button>
                                 )}
                             </div>
+                            <div className="sort-dropdown-wrapper">
+                                <label className="sort-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M3 6h18"></path>
+                                        <path d="M7 12h10"></path>
+                                        <path d="M10 18h4"></path>
+                                    </svg>
+                                    Sort by:
+                                </label>
+                                <select
+                                    className="sort-select"
+                                    value={`${inactiveSortField}-${inactiveSortDirection}`}
+                                    onChange={(e) => {
+                                        const [field, direction] = e.target.value.split('-') as ['name' | 'email' | 'date', 'asc' | 'desc'];
+                                        setInactiveSortField(field);
+                                        setInactiveSortDirection(direction);
+                                    }}
+                                >
+                                    <option value="date-desc">Date (Newest First)</option>
+                                    <option value="date-asc">Date (Oldest First)</option>
+                                    <option value="name-asc">Name (A-Z)</option>
+                                    <option value="name-desc">Name (Z-A)</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="table-container">
                             <div className="table-responsive">
                                 <table className="members-table">
                                     <thead>
                                         <tr>
-                                            <th>Member Name</th>
-                                            <th>Email</th>
-                                            <th>Date Registered</th>
+                                            <th onClick={() => handleInactiveSort('name')} className="sortable">
+                                                <div className="th-content">
+                                                    <span>Member Name</span>
+                                                    <span className="sort-icon">
+                                                        {inactiveSortField === 'name' && (
+                                                            inactiveSortDirection === 'asc' ? '↑' : '↓'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </th>
+                                            <th onClick={() => handleInactiveSort('email')} className="sortable">
+                                                <div className="th-content">
+                                                    <span>Email</span>
+                                                    <span className="sort-icon">
+                                                        {inactiveSortField === 'email' && (
+                                                            inactiveSortDirection === 'asc' ? '↑' : '↓'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </th>
+                                            <th onClick={() => handleInactiveSort('date')} className="sortable">
+                                                <div className="th-content">
+                                                    <span>Date Registered</span>
+                                                    <span className="sort-icon">
+                                                        {inactiveSortField === 'date' && (
+                                                            inactiveSortDirection === 'asc' ? '↑' : '↓'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
