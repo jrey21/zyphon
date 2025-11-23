@@ -805,7 +805,6 @@ function Networks({ onLogout }: DashboardProps) {
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <polyline points="15 18 9 12 15 6"></polyline>
                                         </svg>
-                                        Previous
                                     </button>
                                     <span className="pagination-text">
                                         Page {activeCurrentPage} of {activeTotalPages}
@@ -816,7 +815,6 @@ function Networks({ onLogout }: DashboardProps) {
                                         disabled={activeCurrentPage === activeTotalPages}
                                         title="Next page"
                                     >
-                                        Next
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <polyline points="9 18 15 12 9 6"></polyline>
                                         </svg>
@@ -975,7 +973,6 @@ function Networks({ onLogout }: DashboardProps) {
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <polyline points="15 18 9 12 15 6"></polyline>
                                         </svg>
-                                        Previous
                                     </button>
                                     <span className="pagination-text">
                                         Page {inactiveCurrentPage} of {inactiveTotalPages}
@@ -986,7 +983,6 @@ function Networks({ onLogout }: DashboardProps) {
                                         disabled={inactiveCurrentPage === inactiveTotalPages}
                                         title="Next page"
                                     >
-                                        Next
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <polyline points="9 18 15 12 9 6"></polyline>
                                         </svg>
