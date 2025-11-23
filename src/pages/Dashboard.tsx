@@ -182,6 +182,12 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     <span className="action-icon">🏆</span>
                                     <span className="action-label">Commission</span>
                                 </button>
+                                <button className="action-btn-mobile" onClick={() => {
+                                    navigate('/investment-plans');
+                                }}>
+                                    <span className="action-icon">📈</span>
+                                    <span className="action-label">Investment Plans</span>
+                                </button>
                             </div>
                         </div>
 
@@ -226,28 +232,42 @@ function Dashboard({ onLogout }: DashboardProps) {
 
                         {/* Subscription Plan Section */}
                         <div className="content-section">
-                            <div className="section-header">
-                                <h3>Current Plan</h3>
-                                <button
-                                    className="minimize-btn"
-                                    onClick={() => setIsSubscriptionMinimized(!isSubscriptionMinimized)}
-                                    title={isSubscriptionMinimized ? "Expand" : "Minimize"}
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        style={{ transform: isSubscriptionMinimized ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+                            <div className="section-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    <h3 style={{ margin: 0, padding: 0, lineHeight: '1', display: 'flex', alignItems: 'center' }}>Current Plan</h3>
+                                    <button
+                                        className="minimize-btn"
+                                        onClick={() => setIsSubscriptionMinimized(!isSubscriptionMinimized)}
+                                        title={isSubscriptionMinimized ? "Expand" : "Minimize"}
+                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0, height: '28px', width: '28px' }}
                                     >
-                                        <polyline points="18 15 12 9 6 15"></polyline>
-                                    </svg>
-                                </button>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            style={{ transform: isSubscriptionMinimized ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}
+                                        >
+                                            <polyline points="18 15 12 9 6 15"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <a
+                                    href="/previous-plans"
+                                    className="previous-plans-link"
+                                    style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer', fontWeight: 500 }}
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        navigate('/previous-plans');
+                                    }}
+                                >
+                                    Previous Plans
+                                </a>
                             </div>
                             {!isSubscriptionMinimized && (
                                 <div className="table-container">
@@ -367,9 +387,10 @@ function Dashboard({ onLogout }: DashboardProps) {
                         </div>
 
                         {/* Investment Plans Section */}
-                        <div className="content-section">
+                        <div className="content-section investment-plans-section" id="investment-plans-section">
                             <h3>Investment Plans</h3>
                             <div className="plans-grid">
+                                {/* ...existing plan cards... */}
                                 <div className="plan-card">
                                     <div className="plan-badge">STARTER</div>
                                     <div className="plan-title">Basic Plan</div>
@@ -382,7 +403,6 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     </ul>
                                     <button className="plan-btn">Subscribe</button>
                                 </div>
-
                                 <div className="plan-card featured">
                                     <div className="plan-badge">POPULAR</div>
                                     <div className="plan-title">Silver Plan</div>
@@ -396,7 +416,6 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     </ul>
                                     <button className="plan-btn">Subscribe</button>
                                 </div>
-
                                 <div className="plan-card">
                                     <div className="plan-badge">PREMIUM</div>
                                     <div className="plan-title">Gold Plan</div>
@@ -410,7 +429,6 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     </ul>
                                     <button className="plan-btn">Subscribe</button>
                                 </div>
-
                                 <div className="plan-card elite">
                                     <div className="plan-badge">ELITE</div>
                                     <div className="plan-title">Platinum Plan</div>

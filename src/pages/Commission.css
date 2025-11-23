@@ -175,11 +175,13 @@
     display: flex;
     gap: 24px;
     align-items: flex-start;
+    width: 100%;
 }
 
 .main-column {
-    flex: 1;
+    flex: 1 1 0%;
     min-width: 0;
+    width: 100%;
 }
 
 .sidebar-column {
@@ -329,6 +331,8 @@
     border: 1px solid #f1f5f9;
     margin-bottom: 24px;
     transition: all 0.3s;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .content-section:hover {
@@ -353,6 +357,8 @@
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     -webkit-overflow-scrolling: touch;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .referral-table {
@@ -837,6 +843,7 @@
     .page-header {
         padding: 28px 20px;
         margin-bottom: 24px;
+        width: 100%;
     }
 
     .page-header-top {

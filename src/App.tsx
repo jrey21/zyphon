@@ -6,6 +6,7 @@ import Profile from './pages/Profile'
 import Transaction from './pages/Transaction'
 import AllTransactions from './pages/AllTransactions'
 import Commission from './pages/Commission'
+import InvestmentPlans from './pages/InvestmentPlans'
 import { AuthProvider, useAuth } from './contexts/authContext'
 import { doSignOut } from './firebase/auth'
 import './App.css'
@@ -81,6 +82,14 @@ function AppContent() {
         element={
           <PrivateRoute>
             <Commission onLogout={handleLogout} />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/investment-plans"
+        element={
+          <PrivateRoute>
+            <InvestmentPlans />
           </PrivateRoute>
         }
       />
