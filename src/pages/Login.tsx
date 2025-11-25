@@ -172,6 +172,7 @@ function Login({ onLogin }: LoginProps) {
                                 )}
                             </button>
                         </div>
+                
                     </div>
 
                     <div className="form-options">
