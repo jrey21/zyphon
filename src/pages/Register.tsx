@@ -17,7 +17,6 @@ function Register() {
     });
     const [refOwner, setRefOwner] = useState('');
     const [refUid, setRefUid] = useState<string | undefined>(undefined);
-    // const { currentUser } = useAuth();
 
     useEffect(() => {
         // Parse ?ref=uid from query string

@@ -3,6 +3,9 @@ import './Login.css';
 import { doSignInWithEmailAndPassword } from '../firebase/auth';
 import { useAuth } from '../contexts/authContext';
 
+interface LoginProps {
+    onLogin: () => void;
+}
 
 function Login({ onLogin }: LoginProps) {
     useAuth();
