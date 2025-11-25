@@ -61,9 +61,20 @@ function Dashboard({ onLogout }: DashboardProps) {
     // Registration invitation link (could be dynamic, here is a static example)
     const registrationLink = `${window.location.origin}/register?ref=${currentUser?.uid || 'invite'}`;
 
-    // Copy to clipboard handler
-    const handleCopyLink = () => {
+    // Copy to clipboard handler with feedback for both buttons
+    const [copiedMobile, setCopiedMobile] = useState(false);
+    const [copiedSidebar, setCopiedSidebar] = useState(false);
+
+    const handleCopyLinkMobile = () => {
         navigator.clipboard.writeText(registrationLink);
+        setCopiedMobile(true);
+        setTimeout(() => setCopiedMobile(false), 5000);
+    };
+
+    const handleCopyLinkSidebar = () => {
+        navigator.clipboard.writeText(registrationLink);
+        setCopiedSidebar(true);
+        setTimeout(() => setCopiedSidebar(false), 5000);
     };
 
     return (
@@ -199,7 +210,7 @@ function Dashboard({ onLogout }: DashboardProps) {
                             </div>
                             {/* Registration Invitation Link - Mobile */}
                             <div className="invite-link-card-mobile">
-                                <label className="invite-label">Registration Invitation Link</label>
+                                <label className="invite-label">Invitation Link</label>
                                 <div className="invite-link-row">
                                     <input
                                         className="invite-link-input"
@@ -208,8 +219,8 @@ function Dashboard({ onLogout }: DashboardProps) {
                                         readOnly
                                         onClick={e => (e.target as HTMLInputElement).select()}
                                     />
-                                    <button className="invite-copy-btn" onClick={handleCopyLink} title="Copy link">
-                                        Copy
+                                    <button className="invite-copy-btn" onClick={handleCopyLinkMobile} title="Copy link">
+                                        {copiedMobile ? 'Copied!' : 'Copy'}
                                     </button>
                                 </div>
                             </div>
@@ -497,8 +508,8 @@ function Dashboard({ onLogout }: DashboardProps) {
                                         readOnly
                                         onClick={e => (e.target as HTMLInputElement).select()}
                                     />
-                                    <button className="invite-copy-btn" onClick={handleCopyLink} title="Copy link">
-                                        Copy
+                                    <button className="invite-copy-btn" onClick={handleCopyLinkSidebar} title="Copy link">
+                                        {copiedSidebar ? 'Copied!' : 'Copy'}
                                     </button>
                                 </div>
                             </div>
