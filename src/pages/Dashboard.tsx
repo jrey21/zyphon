@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import SuccessBanner from '../components/SuccessBanner';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import Footer from '../components/Footer';
@@ -18,19 +17,6 @@ function Dashboard({ onLogout }: DashboardProps) {
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [isSubscriptionMinimized, setIsSubscriptionMinimized] = useState(false);
     const { currentUser } = useAuth();
-    // Banner state for login success
-    const [showBanner, setShowBanner] = useState(false);
-    const [bannerText, setBannerText] = useState('');
-
-    // Show banner if redirected with ?login=success
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('login') === 'success') {
-            setBannerText('✅ Successfully logged in!');
-            setShowBanner(true);
-            setTimeout(() => setShowBanner(false), 6000);
-        }
-    }, []);
 
     // Get user display name or email
     const getUserName = () => {
@@ -82,9 +68,6 @@ function Dashboard({ onLogout }: DashboardProps) {
 
     return (
         <div className="home-container">
-            {showBanner && (
-                <SuccessBanner message={bannerText} />
-            )}
             <header className="header">
                 <div className="header-content">
                     <div className="logo">
