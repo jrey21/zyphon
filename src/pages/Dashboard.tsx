@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import SuccessBanner from '../components/SuccessBanner';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import Footer from '../components/Footer';
@@ -17,6 +18,19 @@ function Dashboard({ onLogout }: DashboardProps) {
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [isSubscriptionMinimized, setIsSubscriptionMinimized] = useState(false);
     const { currentUser } = useAuth();
+    // Banner state for login success
+    const [showBanner, setShowBanner] = useState(false);
+    const [bannerText, setBannerText] = useState('');
+
+    // Show banner if redirected with ?login=success
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('login') === 'success') {
+            setBannerText('✅ Successfully logged in!');
+            setShowBanner(true);
+            setTimeout(() => setShowBanner(false), 6000);
+        }
+    }, []);
 
     // Get user display name or email
     const getUserName = () => {
@@ -58,8 +72,19 @@ function Dashboard({ onLogout }: DashboardProps) {
         setShowLogoutModal(false);
     };
 
+    // Registration invitation link (could be dynamic, here is a static example)
+    const registrationLink = `${window.location.origin}/register?ref=${currentUser?.uid || 'invite'}`;
+
+    // Copy to clipboard handler
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(registrationLink);
+    };
+
     return (
         <div className="home-container">
+            {showBanner && (
+                <SuccessBanner message={bannerText} />
+            )}
             <header className="header">
                 <div className="header-content">
                     <div className="logo">
@@ -188,6 +213,22 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     <span className="action-icon">📈</span>
                                     <span className="action-label">Investment Plans</span>
                                 </button>
+                            </div>
+                            {/* Registration Invitation Link - Mobile */}
+                            <div className="invite-link-card-mobile">
+                                <label className="invite-label">Registration Invitation Link</label>
+                                <div className="invite-link-row">
+                                    <input
+                                        className="invite-link-input"
+                                        type="text"
+                                        value={registrationLink}
+                                        readOnly
+                                        onClick={e => (e.target as HTMLInputElement).select()}
+                                    />
+                                    <button className="invite-copy-btn" onClick={handleCopyLink} title="Copy link">
+                                        Copy
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -461,6 +502,22 @@ function Dashboard({ onLogout }: DashboardProps) {
                                     <span className="action-icon">🏆</span>
                                     <span className="action-title">Commission</span>
                                 </button>
+                            </div>
+                            {/* Registration Invitation Link - Desktop/Sidebar */}
+                            <div className="invite-link-card-sidebar">
+                                <label className="invite-label">Registration Invitation Link</label>
+                                <div className="invite-link-row">
+                                    <input
+                                        className="invite-link-input"
+                                        type="text"
+                                        value={registrationLink}
+                                        readOnly
+                                        onClick={e => (e.target as HTMLInputElement).select()}
+                                    />
+                                    <button className="invite-copy-btn" onClick={handleCopyLink} title="Copy link">
+                                        Copy
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </aside>

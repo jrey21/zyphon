@@ -1,11 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Login.css';
 import { doSignInWithEmailAndPassword } from '../firebase/auth';
 import { useAuth } from '../contexts/authContext';
 
-interface LoginProps {
-    onLogin: () => void;
-}
 
 function Login({ onLogin }: LoginProps) {
     useAuth();
@@ -17,6 +14,15 @@ function Login({ onLogin }: LoginProps) {
     const [isTypingPassword, setIsTypingPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [showBanner, setShowBanner] = useState(false);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('registered') === '1') {
+            setShowBanner(true);
+            setTimeout(() => setShowBanner(false), 6000);
+        }
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,6 +46,11 @@ function Login({ onLogin }: LoginProps) {
 
     return (
         <div className="login-container">
+            {showBanner && (
+                <div className="dashboard-banner-success">
+                    <span>🎉 Congratulations! You have successfully created an account.</span>
+                </div>
+            )}
             <div className="login-branding">
                 <div className="branding-badge">
                     <span className="badge-dot"></span>

@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Networks from './pages/Networks'
 import Profile from './pages/Profile'
@@ -26,7 +27,7 @@ function AppContent() {
   }
 
   const handleLogin = () => {
-    navigate('/dashboard')
+    navigate('/dashboard?login=success')
   }
 
   return (
@@ -36,6 +37,10 @@ function AppContent() {
         element={
           userLoggedIn ? <Navigate to="/dashboard" replace /> : <Login onLogin={handleLogin} />
         }
+      />
+      <Route
+        path="/register"
+        element={<Register />}
       />
       <Route
         path="/dashboard"
