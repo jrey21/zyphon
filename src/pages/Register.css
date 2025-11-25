@@ -5,6 +5,7 @@
     grid-template-rows: auto 1fr;
     position: relative;
     overflow: hidden;
+    padding-top: 20px;
 }
 
 .login-image {

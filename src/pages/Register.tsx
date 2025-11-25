@@ -229,6 +229,7 @@ function Register() {
                         )}
                     </div>
                     <div className="form-group">
+                        <label htmlFor="invitedBy" className="input-label">Invited by</label>
                         <div className="input-wrapper">
                             <input
                                 id="invitedBy"
