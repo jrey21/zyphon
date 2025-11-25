@@ -41,7 +41,16 @@ function Login({ onLogin }: LoginProps) {
                 await doSignInWithEmailAndPassword(email, password);
                 onLogin();
             } catch (error: any) {
-                setError(error.message || 'Failed to sign in. Please check your credentials.');
+                // Firebase error codes: https://firebase.google.com/docs/reference/js/auth.md#autherrorcodes
+                if (error.code === 'auth/user-not-found') {
+                    setError('Email does not exist.');
+                } else if (error.code === 'auth/wrong-password') {
+                    setError('Incorrect password, try again!');
+                } else if (error.code === 'auth/invalid-credential') {
+                    setError('Invalid credentials. Please try again.');
+                } else {
+                    setError(error.message || 'Failed to sign in. Please check your credentials.');
+                }
                 setIsSigningIn(false);
             }
         }
@@ -172,7 +181,6 @@ function Login({ onLogin }: LoginProps) {
                                 )}
                             </button>
                         </div>
-                
                     </div>
 
                     <div className="form-options">
