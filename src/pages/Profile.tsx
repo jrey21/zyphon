@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Footer from '../components/Footer';
@@ -19,7 +19,21 @@ function Profile({ onLogout }: ProfileProps) {
     const [activeSection, setActiveSection] = useState<'info' | 'security'>('info');
 
     // Profile Info States
-    const [displayName, setDisplayName] = useState(currentUser?.displayName || '');
+    const getUserName = () => {
+        if (!currentUser) return 'User';
+        if (currentUser.displayName) return currentUser.displayName;
+        if (currentUser.email) return currentUser.email.split('@')[0];
+        return 'User';
+    };
+
+    const [initialDisplayName, setInitialDisplayName] = useState(currentUser?.displayName || getUserName());
+    const [displayName, setDisplayName] = useState(currentUser?.displayName || getUserName());
+
+    useEffect(() => {
+        const name = currentUser?.displayName || getUserName();
+        setInitialDisplayName(name);
+        setDisplayName(name);
+    }, [currentUser]);
     const [email] = useState(currentUser?.email || '');
     const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
     const [profileMessage, setProfileMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -61,20 +75,6 @@ function Profile({ onLogout }: ProfileProps) {
 
     const passwordStrength = getPasswordStrength(newPassword);
 
-    const getUserName = () => {
-        let name = '';
-        if (currentUser?.displayName) {
-            name = currentUser.displayName;
-        } else if (currentUser?.email) {
-            name = currentUser.email.split('@')[0];
-        } else {
-            name = 'User';
-        }
-        return name.split(' ').map(word =>
-            word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-        ).join(' ');
-    };
-
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
@@ -105,6 +105,9 @@ function Profile({ onLogout }: ProfileProps) {
                 displayName: displayName || null,
             });
             setProfileMessage({ type: 'success', text: 'Profile updated successfully!' });
+            setTimeout(() => {
+                setProfileMessage(null);
+            }, 3000);
         } catch (error: any) {
             setProfileMessage({ type: 'error', text: error.message || 'Failed to update profile.' });
         } finally {
@@ -144,8 +147,8 @@ function Profile({ onLogout }: ProfileProps) {
             setNewPassword('');
             setConfirmPassword('');
         } catch (error: any) {
-            if (error.code === 'auth/wrong-password') {
-                setPasswordMessage({ type: 'error', text: 'Current password is incorrect.' });
+            if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                setPasswordMessage({ type: 'error', text: 'Current password is incorrect. Please try again!' });
             } else if (error.code === 'auth/weak-password') {
                 setPasswordMessage({ type: 'error', text: 'Password is too weak.' });
             } else {
@@ -304,7 +307,11 @@ function Profile({ onLogout }: ProfileProps) {
                                                 id="displayName"
                                                 type="text"
                                                 value={displayName}
-                                                onChange={(e) => setDisplayName(e.target.value)}
+                                                onChange={(e) => {
+                                                    const value = e.target.value;
+                                                    const capitalized = value.replace(/\b\w/g, c => c.toUpperCase());
+                                                    setDisplayName(capitalized);
+                                                }}
                                                 placeholder="Enter your display name"
                                             />
                                         </div>
@@ -335,7 +342,7 @@ function Profile({ onLogout }: ProfileProps) {
                                             <button
                                                 type="submit"
                                                 className="btn btn-primary"
-                                                disabled={isUpdatingProfile}
+                                                disabled={isUpdatingProfile || displayName === initialDisplayName}
                                             >
                                                 {isUpdatingProfile ? 'Updating...' : 'Update Profile'}
                                             </button>

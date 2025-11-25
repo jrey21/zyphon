@@ -16,6 +16,16 @@ export async function getUserProfileByUid(uid: string) {
     }
 }
 
+export async function updateUserDisplayName(uid: string, displayName: string) {
+    if (!uid) return false;
+    try {
+        await setDoc(doc(db, "users", uid), { name: displayName }, { merge: true });
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
 export async function saveUserRegistration({ uid, name, email, phone, invitedByUid }: {
     uid: string;
     name: string;
