@@ -83,7 +83,11 @@ function Register() {
                 </div>
                 <div className="form-group">
                     <label>Invited By</label>
-                    <input type="text" value={refOwner} readOnly />
+                    <input
+                        type="text"
+                        value={refOwner && refOwner !== 'Unknown' ? refOwner : 'Owner name not available'}
+                        readOnly
+                    />
                 </div>
                 <button type="submit" className="register-btn">Register</button>
             </form>
