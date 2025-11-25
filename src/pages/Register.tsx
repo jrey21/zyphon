@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/authContext';
 import { getUserProfileByUid, saveUserRegistration } from '../firebase/user';
 import { doCreateUserWithEmailAndPassword } from '../firebase/auth';
 import './Register.css';
@@ -18,7 +17,7 @@ function Register() {
     });
     const [refOwner, setRefOwner] = useState('');
     const [refUid, setRefUid] = useState<string | undefined>(undefined);
-    const { currentUser } = useAuth();
+    // const { currentUser } = useAuth();
 
     useEffect(() => {
         // Parse ?ref=uid from query string
