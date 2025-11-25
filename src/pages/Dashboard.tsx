@@ -381,42 +381,33 @@ function Dashboard({ onLogout }: DashboardProps) {
 
                         {/* Network Statistics Section */}
                         <div className="content-section">
-                            <h3>Network Statistics</h3>
-                            <div className="cards-grid">
-                                <div className="card network-card">
-                                    <div className="card-header">
-                                        <h3>Total Network Subscription</h3>
-                                        <span className="card-icon">🌐</span>
+                            <h3 style={{ marginBottom: '18px', fontWeight: 700, fontSize: '1.35rem' }}>Network Statistics</h3>
+                            <div className="cards-grid modern-network-grid">
+                                <div className="card network-card modern-network-card commission-card">
+                                    <div className="card-header modern-card-header">
+                                        <h3 className="modern-card-title">TOTAL COMMISSION</h3>
+                                        <span className="card-icon modern-card-icon" role="img" aria-label="commission" style={{ fontSize: '2.2rem', color: '#FFD700' }}>💰</span>
                                     </div>
-                                    <div className="card-value">₱125,000</div>
-                                    <div className="card-change positive">+15.3% growth</div>
+                                    <div className="card-value modern-card-value">₱6,750</div>
+                                    <div className="card-change modern-card-change positive">+₱850 this week</div>
                                 </div>
 
-                                <div className="card network-card">
-                                    <div className="card-header">
-                                        <h3>Total Commission</h3>
-                                        <span className="card-icon">💰</span>
+                                <div className="card network-card modern-network-card active-card">
+                                    <div className="card-header modern-card-header">
+                                        <h3 className="modern-card-title">ACTIVE TEAM</h3>
+                                        <span className="card-icon modern-card-icon" role="img" aria-label="active team" style={{ fontSize: '2.2rem', color: '#00C9A7' }}>👥</span>
                                     </div>
-                                    <div className="card-value">₱6,750</div>
-                                    <div className="card-change positive">+₱850 this week</div>
+                                    <div className="card-value modern-card-value">42</div>
+                                    <div className="card-change modern-card-change positive" style={{ color: '#00C9A7' }}>8 new members</div>
                                 </div>
 
-                                <div className="card network-card">
-                                    <div className="card-header">
-                                        <h3>Active Team</h3>
-                                        <span className="card-icon">👥</span>
+                                <div className="card network-card modern-network-card inactive-card">
+                                    <div className="card-header modern-card-header">
+                                        <h3 className="modern-card-title">INACTIVE TEAM</h3>
+                                        <span className="card-icon modern-card-icon" role="img" aria-label="inactive team" style={{ fontSize: '2.2rem', color: '#A0A0A0' }}>😴</span>
                                     </div>
-                                    <div className="card-value">42</div>
-                                    <div className="card-change positive">8 new members</div>
-                                </div>
-
-                                <div className="card network-card">
-                                    <div className="card-header">
-                                        <h3>Inactive Team</h3>
-                                        <span className="card-icon">😴</span>
-                                    </div>
-                                    <div className="card-value">18</div>
-                                    <div className="card-change">Engage them</div>
+                                    <div className="card-value modern-card-value">18</div>
+                                    <div className="card-change modern-card-change" style={{ color: '#6C7A89' }}>Engage them</div>
                                 </div>
                             </div>
                         </div>
