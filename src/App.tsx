@@ -21,9 +21,6 @@ function AppContent() {
   const { userLoggedIn } = useAuth()
   const navigate = useNavigate()
 
-  const handleLogin = () => {
-    navigate('/dashboard?login=success')
-  }
 
   const handleLogout = async () => {
     // Dynamically import supabase client
