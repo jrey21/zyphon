@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "../supabase/supabaseClient";
-import { useAuth } from "../contexts/AuthProvider";
+// import { useAuth } from "../contexts/AuthProvider";
 
 function Register() {
     const navigate = useNavigate();

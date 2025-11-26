@@ -37,7 +37,7 @@ function AppContent() {
       <Route
         path="/login"
         element={
-          userLoggedIn ? <Navigate to="/dashboard" replace /> : <Login onLogin={handleLogin} />
+          userLoggedIn ? <Navigate to="/dashboard" replace /> : <Login />
         }
       />
       <Route
