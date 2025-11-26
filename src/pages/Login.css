@@ -5,7 +5,7 @@
     grid-template-rows: 1fr auto;
     position: relative;
     overflow: hidden;
-    padding: 70px 0;
+    padding: 40px 0 0 0;
 }
 
 .login-image {
@@ -319,7 +319,7 @@
 
 .hamster-container {
     position: absolute;
-    top: -60px;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;

@@ -9,7 +9,6 @@ import AllTransactions from './pages/AllTransactions'
 import Commission from './pages/Commission'
 import InvestmentPlans from './pages/InvestmentPlans'
 import { AuthProvider, useAuth } from './contexts/authContext'
-import { doSignOut } from './firebase/auth'
 import './App.css'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
@@ -18,16 +17,19 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
 }
 
 function AppContent() {
+
   const { userLoggedIn } = useAuth()
   const navigate = useNavigate()
 
-  const handleLogout = async () => {
-    await doSignOut()
-    navigate('/login')
-  }
-
   const handleLogin = () => {
     navigate('/dashboard?login=success')
+  }
+
+  const handleLogout = async () => {
+    // Dynamically import supabase client
+    const { supabase } = await import('./supabase/supabaseClient')
+    await supabase.auth.signOut()
+    navigate('/login')
   }
 
   return (

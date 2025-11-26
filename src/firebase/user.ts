@@ -1,29 +1,23 @@
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { app } from "./firebase";
-
-const db = getFirestore(app);
+import { supabase } from '../supabase/supabaseClient';
 
 export async function getUserProfileByUid(uid: string) {
     if (!uid) return null;
-    try {
-        const userDoc = await getDoc(doc(db, "users", uid));
-        if (userDoc.exists()) {
-            return userDoc.data();
-        }
-        return null;
-    } catch (err) {
-        return null;
-    }
+    const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('uid', uid)
+        .single();
+    if (error || !data) return null;
+    return data;
 }
 
 export async function updateUserDisplayName(uid: string, displayName: string) {
     if (!uid) return false;
-    try {
-        await setDoc(doc(db, "users", uid), { name: displayName }, { merge: true });
-        return true;
-    } catch (err) {
-        return false;
-    }
+    const { error } = await supabase
+        .from('users')
+        .update({ name: displayName })
+        .eq('uid', uid);
+    return !error;
 }
 
 export async function saveUserRegistration({ uid, name, email, phone, invitedByUid }: {
@@ -34,12 +28,15 @@ export async function saveUserRegistration({ uid, name, email, phone, invitedByU
     invitedByUid?: string;
 }) {
     const userData = {
+        uid,
         name,
         email,
         phone,
         invitedByUid,
-        createdAt: new Date().toISOString()
+        created_at: new Date().toISOString()
     };
-    await setDoc(doc(db, "users", uid), userData);
-    return true;
+    const { error } = await supabase
+        .from('users')
+        .insert([userData]);
+    return !error;
 }

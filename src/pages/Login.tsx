@@ -1,68 +1,60 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabase/supabaseClient";
+import { useAuth } from "../contexts/AuthProvider";
 import './Login.css';
-import { doSignInWithEmailAndPassword } from '../firebase/auth';
-import { useAuth } from '../contexts/authContext';
 
-interface LoginProps {
-    onLogin: () => void;
-}
-
-function Login({ onLogin }: LoginProps) {
-    useAuth();
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+function Login() {
+    const navigate = useNavigate();
+    const { currentUser } = useAuth();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [isSigningIn, setIsSigningIn] = useState(false);
     const [isTypingEmail, setIsTypingEmail] = useState(false);
     const [isTypingPassword, setIsTypingPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [isSigningIn, setIsSigningIn] = useState(false);
-    const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('registered') === '1') {
-            setShowBanner(true);
-            setTimeout(() => setShowBanner(false), 6000);
+        if (currentUser) {
+            navigate("/dashboard");
         }
-    }, []);
+    }, [currentUser]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         if (!email || !password) {
-            setError('Please fill in all fields');
+            setError("Please fill in all fields");
             return;
         }
 
-        if (!isSigningIn) {
-            setIsSigningIn(true);
-            try {
-                await doSignInWithEmailAndPassword(email, password);
-                onLogin();
-            } catch (error: any) {
-                // Firebase error codes: https://firebase.google.com/docs/reference/js/auth.md#autherrorcodes
-                if (error.code === 'auth/user-not-found') {
-                    setError('Email does not exist.');
-                } else if (error.code === 'auth/wrong-password') {
-                    setError('Incorrect password, try again!');
-                } else if (error.code === 'auth/invalid-credential') {
-                    setError('Invalid credentials. Please try again.');
-                } else {
-                    setError(error.message || 'Failed to sign in. Please check your credentials.');
-                }
+        setError("");
+        setIsSigningIn(true);
+
+        try {
+            const { data, error: signInError } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (signInError) {
+                setError(signInError.message);
                 setIsSigningIn(false);
+                return;
             }
+
+            if (data.user) {
+                navigate("/dashboard");
+            }
+        } catch (err: any) {
+            setError(err.message || "Login failed");
+        } finally {
+            setIsSigningIn(false);
         }
     };
 
     return (
         <div className="login-container">
-            {showBanner && (
-                <div className="dashboard-banner-success">
-                    <span>🎉 Congratulations! You have successfully created an account.</span>
-                </div>
-            )}
             <div className="login-branding">
                 <div className="branding-badge">
                     <span className="badge-dot"></span>

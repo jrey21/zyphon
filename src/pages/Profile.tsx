@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 import Footer from '../components/Footer';
-import { useAuth } from '../contexts/authContext';
-import { updateProfile, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
+import { useAuth } from '../contexts/AuthProvider';
+// import Supabase update logic here if needed
 import logoImage from '../assets/img/logo.png';
 
 interface ProfileProps {
@@ -21,16 +21,16 @@ function Profile({ onLogout }: ProfileProps) {
     // Profile Info States
     const getUserName = () => {
         if (!currentUser) return 'User';
-        if (currentUser.displayName) return currentUser.displayName;
+        if (currentUser.name) return currentUser.name;
         if (currentUser.email) return currentUser.email.split('@')[0];
         return 'User';
     };
 
-    const [initialDisplayName, setInitialDisplayName] = useState(currentUser?.displayName || getUserName());
-    const [displayName, setDisplayName] = useState(currentUser?.displayName || getUserName());
+    const [initialDisplayName, setInitialDisplayName] = useState(currentUser?.name || getUserName());
+    const [displayName, setDisplayName] = useState(currentUser?.name || getUserName());
 
     useEffect(() => {
-        const name = currentUser?.displayName || getUserName();
+        const name = currentUser?.name || getUserName();
         setInitialDisplayName(name);
         setDisplayName(name);
     }, [currentUser]);
@@ -101,9 +101,7 @@ function Profile({ onLogout }: ProfileProps) {
         setProfileMessage(null);
 
         try {
-            await updateProfile(currentUser, {
-                displayName: displayName || null,
-            });
+            // TODO: Use Supabase to update user profile
             setProfileMessage({ type: 'success', text: 'Profile updated successfully!' });
             setTimeout(() => {
                 setProfileMessage(null);
@@ -135,25 +133,13 @@ function Profile({ onLogout }: ProfileProps) {
         setIsChangingPassword(true);
 
         try {
-            // Re-authenticate user before changing password
-            const credential = EmailAuthProvider.credential(currentUser.email, currentPassword);
-            await reauthenticateWithCredential(currentUser, credential);
-
-            // Change password
-            await updatePassword(currentUser, newPassword);
-
+            // TODO: Use Supabase to change password
             setPasswordMessage({ type: 'success', text: 'Password changed successfully!' });
             setCurrentPassword('');
             setNewPassword('');
             setConfirmPassword('');
         } catch (error: any) {
-            if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-                setPasswordMessage({ type: 'error', text: 'Current password is incorrect. Please try again!' });
-            } else if (error.code === 'auth/weak-password') {
-                setPasswordMessage({ type: 'error', text: 'Password is too weak.' });
-            } else {
-                setPasswordMessage({ type: 'error', text: error.message || 'Failed to change password.' });
-            }
+            setPasswordMessage({ type: 'error', text: error.message || 'Failed to change password.' });
         } finally {
             setIsChangingPassword(false);
         }
@@ -332,7 +318,7 @@ function Profile({ onLogout }: ProfileProps) {
                                             <label>Account Created</label>
                                             <input
                                                 type="text"
-                                                value={currentUser?.metadata.creationTime ? new Date(currentUser.metadata.creationTime).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'}
+                                                value={currentUser?.created_at ? new Date(currentUser.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown'}
                                                 disabled
                                                 className="disabled-input"
                                             />

@@ -35,8 +35,8 @@ function Transaction({ onLogout }: TransactionProps) {
 
     const getUserName = () => {
         let name = '';
-        if (currentUser?.displayName) {
-            name = currentUser.displayName;
+        if (currentUser?.name) {
+            name = currentUser.name;
         } else if (currentUser?.email) {
             name = currentUser.email.split('@')[0];
         } else {
